@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="dark" lang="es">
 
 <head>
@@ -10,9 +9,6 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
   <link
     href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Noto+Serif:ital,wght@0,500;0,600;0,700;1,500&amp;display=swap"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
     rel="stylesheet" />
   <link
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -186,6 +182,20 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    /* Custom scrollbar for cart drawer */
+    .cart-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .cart-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .cart-scroll::-webkit-scrollbar-thumb {
+      background-color: theme('colors.surface-variant');
+      border-radius: 20px;
+    }
   </style>
 </head>
 
@@ -208,8 +218,13 @@
       <a class="text-stone-300/80 hover:text-white cursor-pointer active:scale-95 transition-transform hover:scale-105 transition-all duration-400 ease-out hover:shadow-amber-900/20"
         href="#">Shop</a>
     </div>
-    <div class="flex gap-4 text-amber-600 dark:text-amber-500">
-      <span class="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform">shopping_cart</span>
+    <div class="flex gap-4 text-amber-600 dark:text-amber-500 items-center">
+      <div class="relative cursor-pointer hover:scale-105 transition-transform" onclick="toggleCart()">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        <span
+          class="absolute -top-2 -right-2 bg-amber-500 text-stone-950 text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center"
+          id="cart-counter">0</span>
+      </div>
       <span class="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform">favorite</span>
     </div>
   </nav>
@@ -243,27 +258,52 @@
     </div>
   </section>
   <!-- Featured Products -->
-  <section class="py-section-gap bg-background w-full">
+  <section class="py-section-gap bg-background w-full" id="products-section">
     <div class="max-w-container-max mx-auto px-gutter">
-      <div class="text-center mb-16">
+      <div class="text-center mb-10">
         <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Nuestra Colección</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant">Descubre el arte de la maceración en cada botella.
-        </p>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-8">Descubre el arte de la maceración en cada
+          botella.</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Filters -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12" id="product-filters">
+        <button
+          class="px-6 py-2 rounded-full border border-amber-500/30 text-amber-500 bg-amber-500/10 font-label-sm uppercase tracking-wider transition-colors"
+          data-filter="all">Todos</button>
+        <button
+          class="px-6 py-2 rounded-full border border-stone-700 text-stone-400 hover:border-amber-500/50 hover:text-amber-400 font-label-sm uppercase tracking-wider transition-colors"
+          data-filter="macerados">Macerados</button>
+        <button
+          class="px-6 py-2 rounded-full border border-stone-700 text-stone-400 hover:border-amber-500/50 hover:text-amber-400 font-label-sm uppercase tracking-wider transition-colors"
+          data-filter="licores">Licores</button>
+        <button
+          class="px-6 py-2 rounded-full border border-stone-700 text-stone-400 hover:border-amber-500/50 hover:text-amber-400 font-label-sm uppercase tracking-wider transition-colors"
+          data-filter="cremas">Cremas</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
         <!-- Product Card 1 -->
         <div
-          class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+          class="product-item glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group"
+          data-category="macerados">
           <div
             class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
           </div>
           <div class="relative z-10 flex flex-col items-center">
-            <img alt="Macerado de Manzana Verde" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
-              data-alt='A premium artisanal bottle of "Macerado de Manzana Verde" liquor. The label is elegant and clearly features a green apple illustration. The bottle is filled with a vibrant, translucent green liquid. Cinematic lighting, warm glow, dark background with subtle tropical leaves, high resolution, professional product photography.'
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgoXRqz2pDMu_EH6dWGbs_skQiNDLJKFPJDiWWGx1MWFoQqqN2VhYptWRsbvTK1GZjvgfaDxwR5YOu7CQq-fQqXnqyE71EcHSS_mgfc_nlKSZW7y0iMsfb_gTVBIe06r8HKqq08YqH-UpM88EF5tloQIuGSoJbc9hXDqaZL5EhvlJHgkyY1k9hLbAHv8UiKULhkc_2QZBg6iStVSVjODvXIDL7lE6kkRfY4uZfAxPn8WwQQGYDL0aGxeYCNwowqKrkUVsSWl27dek" />
-            <h3 class="font-headline-md text-headline-md text-secondary mb-2">Macerado de Manzana Verde</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Refrescante, ácido y con el
-              aroma vibrante de manzanas verdes seleccionadas.</p>
+            <div class="relative w-full flex justify-center">
+              <img alt="Macerado de Manzana Verde"
+                class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgoXRqz2pDMu_EH6dWGbs_skQiNDLJKFPJDiWWGx1MWFoQqqN2VhYptWRsbvTK1GZjvgfaDxwR5YOu7CQq-fQqXnqyE71EcHSS_mgfc_nlKSZW7y0iMsfb_gTVBIe06r8HKqq08YqH-UpM88EF5tloQIuGSoJbc9hXDqaZL5EhvlJHgkyY1k9hLbAHv8UiKULhkc_2QZBg6iStVSVjODvXIDL7lE6kkRfY4uZfAxPn8WwQQGYDL0aGxeYCNwowqKrkUVsSWl27dek" />
+              <!-- Quick View Button -->
+              <button
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-amber-500 hover:text-stone-900"
+                onclick="openQuickView(1)">
+                <span class="material-symbols-outlined text-xl">visibility</span>
+              </button>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-secondary mb-2 text-center">Macerado de Manzana Verde</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-4 line-clamp-2">Refrescante,
+              ácido y con el aroma vibrante de manzanas verdes seleccionadas.</p>
+            <p class="font-body-lg font-bold text-amber-500 mb-6">$35.00</p>
             <div class="w-full mb-4">
               <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
                 <span>Nivel de dulzor</span>
@@ -275,7 +315,9 @@
             </div>
             <div class="flex justify-between items-center w-full mt-4">
               <span class="font-label-sm text-label-sm text-primary">18% Alc/Vol</span>
-              <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <button
+                class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors bg-amber-500/10 hover:bg-amber-500/20 px-4 py-2 rounded-full"
+                onclick="addToCart(1, 'Macerado de Manzana Verde', 35.00, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCgoXRqz2pDMu_EH6dWGbs_skQiNDLJKFPJDiWWGx1MWFoQqqN2VhYptWRsbvTK1GZjvgfaDxwR5YOu7CQq-fQqXnqyE71EcHSS_mgfc_nlKSZW7y0iMsfb_gTVBIe06r8HKqq08YqH-UpM88EF5tloQIuGSoJbc9hXDqaZL5EhvlJHgkyY1k9hLbAHv8UiKULhkc_2QZBg6iStVSVjODvXIDL7lE6kkRfY4uZfAxPn8WwQQGYDL0aGxeYCNwowqKrkUVsSWl27dek')">
                 <span class="font-label-sm text-label-sm">Agregar</span>
                 <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
               </button>
@@ -284,17 +326,27 @@
         </div>
         <!-- Product Card 2 -->
         <div
-          class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+          class="product-item glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group"
+          data-category="licores">
           <div
             class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
           </div>
           <div class="relative z-10 flex flex-col items-center">
-            <img alt="Licor de Cacao" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
-              data-alt="An elegant artisanal bottle containing a rich, dark brown cacao liqueur. It rests on a textured slate surface illuminated by a single spotlight from above, creating a cinematic, moody atmosphere. Small roasted cacao beans are scattered artfully around the base. The vibe is premium and indulgent."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlRslAwmwQtGmkq0ARuh4hKHG7--Npx58uSRn--GspQv1_0iwq1bD0ynJcW_2DKh9HuiUa0w3Y8AqErWpgIEI565UNWRDJTNFFyFBOOkJn6Ns7ULiKltZwSpiu8hHwwN_KbnKh2mvwQ_IwGEyytsY9yxvxWdXYROT2fMDyQXw9lBz5qIG8gyxTolfb7AYwwoDed2Mv1xD2v1jHn-00RVziqySCb6tYz9qKEoFMqEcOC-5FUnFNAJMD58IRHWxKvcYy6xPDs0esEtQ" />
-            <h3 class="font-headline-md text-headline-md text-secondary mb-2">Licor de Cacao</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Profundo, sedoso con notas de
-              cacao tostado.</p>
+            <div class="relative w-full flex justify-center">
+              <img alt="Licor de Cacao"
+                class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlRslAwmwQtGmkq0ARuh4hKHG7--Npx58uSRn--GspQv1_0iwq1bD0ynJcW_2DKh9HuiUa0w3Y8AqErWpgIEI565UNWRDJTNFFyFBOOkJn6Ns7ULiKltZwSpiu8hHwwN_KbnKh2mvwQ_IwGEyytsY9yxvxWdXYROT2fMDyQXw9lBz5qIG8gyxTolfb7AYwwoDed2Mv1xD2v1jHn-00RVziqySCb6tYz9qKEoFMqEcOC-5FUnFNAJMD58IRHWxKvcYy6xPDs0esEtQ" />
+              <!-- Quick View Button -->
+              <button
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-amber-500 hover:text-stone-900"
+                onclick="openQuickView(2)">
+                <span class="material-symbols-outlined text-xl">visibility</span>
+              </button>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-secondary mb-2 text-center">Licor de Cacao</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-4 line-clamp-2">Profundo, sedoso
+              con notas de cacao tostado.</p>
+            <p class="font-body-lg font-bold text-amber-500 mb-6">$42.00</p>
             <div class="w-full mb-4">
               <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
                 <span>Nivel de dulzor</span>
@@ -306,7 +358,9 @@
             </div>
             <div class="flex justify-between items-center w-full mt-4">
               <span class="font-label-sm text-label-sm text-primary">18% Alc/Vol</span>
-              <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <button
+                class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors bg-amber-500/10 hover:bg-amber-500/20 px-4 py-2 rounded-full"
+                onclick="addToCart(2, 'Licor de Cacao', 42.00, 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlRslAwmwQtGmkq0ARuh4hKHG7--Npx58uSRn--GspQv1_0iwq1bD0ynJcW_2DKh9HuiUa0w3Y8AqErWpgIEI565UNWRDJTNFFyFBOOkJn6Ns7ULiKltZwSpiu8hHwwN_KbnKh2mvwQ_IwGEyytsY9yxvxWdXYROT2fMDyQXw9lBz5qIG8gyxTolfb7AYwwoDed2Mv1xD2v1jHn-00RVziqySCb6tYz9qKEoFMqEcOC-5FUnFNAJMD58IRHWxKvcYy6xPDs0esEtQ')">
                 <span class="font-label-sm text-label-sm">Agregar</span>
                 <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
               </button>
@@ -315,17 +369,27 @@
         </div>
         <!-- Product Card 3 -->
         <div
-          class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+          class="product-item glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group"
+          data-category="licores">
           <div
             class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
           </div>
           <div class="relative z-10 flex flex-col items-center">
-            <img alt="Licor de Café" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
-              data-alt="A tall, beautifully crafted glass bottle showcasing a deep amber coffee liqueur. The bottle is set against a pitch-black background with a soft gold rim light highlighting the liquid's rich color. A few premium coffee beans are visible near the bottom edge. Cinematic glassmorphism style."
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpCdjzCSCc2ObRJYBH2Az-QTiDZSVgl9RO-XmaFbdLNHiHq-qp8acFdfaA6zfL824kM-3SBmuL5IwDUz3zSjhljw-z3LCE034ZjrCx4TpYaAACkgIjzkVgZ46y9uGlB6iBfYvK2LTWl6ZktdWSDIShorgFWhO2dNdyhedhgCkOmJK1CWhb2nh7qsRo5iCFdfzBRX-n9pE7LXLFCwEk3H9ECQihr3EBSmKh63e1YCVJVXW2kx3HboBXLrvndhGyR5y10Des1--_eqY" />
-            <h3 class="font-headline-md text-headline-md text-secondary mb-2">Licor de Café</h3>
-            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Intenso, aromático, puramente
-              nicaragüense.</p>
+            <div class="relative w-full flex justify-center">
+              <img alt="Licor de Café"
+                class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl transition-transform duration-500 group-hover:scale-105"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpCdjzCSCc2ObRJYBH2Az-QTiDZSVgl9RO-XmaFbdLNHiHq-qp8acFdfaA6zfL824kM-3SBmuL5IwDUz3zSjhljw-z3LCE034ZjrCx4TpYaAACkgIjzkVgZ46y9uGlB6iBfYvK2LTWl6ZktdWSDIShorgFWhO2dNdyhedhgCkOmJK1CWhb2nh7qsRo5iCFdfzBRX-n9pE7LXLFCwEk3H9ECQihr3EBSmKh63e1YCVJVXW2kx3HboBXLrvndhGyR5y10Des1--_eqY" />
+              <!-- Quick View Button -->
+              <button
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-md border border-amber-500/30 text-amber-400 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-amber-500 hover:text-stone-900"
+                onclick="openQuickView(3)">
+                <span class="material-symbols-outlined text-xl">visibility</span>
+              </button>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-secondary mb-2 text-center">Licor de Café</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-center mb-4 line-clamp-2">Intenso,
+              aromático, puramente nicaragüense.</p>
+            <p class="font-body-lg font-bold text-amber-500 mb-6">$38.00</p>
             <div class="w-full mb-4">
               <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
                 <span>Nivel de dulzor</span>
@@ -337,7 +401,9 @@
             </div>
             <div class="flex justify-between items-center w-full mt-4">
               <span class="font-label-sm text-label-sm text-primary">22% Alc/Vol</span>
-              <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <button
+                class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors bg-amber-500/10 hover:bg-amber-500/20 px-4 py-2 rounded-full"
+                onclick="addToCart(3, 'Licor de Café', 38.00, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCpCdjzCSCc2ObRJYBH2Az-QTiDZSVgl9RO-XmaFbdLNHiHq-qp8acFdfaA6zfL824kM-3SBmuL5IwDUz3zSjhljw-z3LCE034ZjrCx4TpYaAACkgIjzkVgZ46y9uGlB6iBfYvK2LTWl6ZktdWSDIShorgFWhO2dNdyhedhgCkOmJK1CWhb2nh7qsRo5iCFdfzBRX-n9pE7LXLFCwEk3H9ECQihr3EBSmKh63e1YCVJVXW2kx3HboBXLrvndhGyR5y10Des1--_eqY')">
                 <span class="font-label-sm text-label-sm">Agregar</span>
                 <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
               </button>
@@ -364,6 +430,322 @@
       </div>
     </div>
   </footer>
-</body>
+  <!-- Shopping Cart Drawer -->
+  <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden transition-opacity duration-300"
+    id="cart-overlay" onclick="toggleCart()"></div>
+  <div
+    class="fixed top-0 right-0 h-full w-full sm:w-96 bg-stone-950 border-l border-amber-900/30 z-[70] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col"
+    id="cart-drawer">
+    <div class="p-6 border-b border-stone-800 flex justify-between items-center bg-stone-900/50">
+      <h2 class="font-headline-md text-amber-500 flex items-center gap-2">
+        <span class="material-symbols-outlined">shopping_cart</span>
+        Tu Carrito
+      </h2>
+      <button class="text-stone-400 hover:text-amber-500 transition-colors" onclick="toggleCart()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto cart-scroll p-6" id="cart-items">
+      <!-- Cart items will be injected here via JS -->
+      <div class="text-stone-500 text-center py-10 hidden" id="empty-cart-msg">
+        Tu carrito está vacío.
+      </div>
+    </div>
+    <div class="p-6 border-t border-stone-800 bg-stone-900/50">
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-stone-400 font-label-sm uppercase tracking-wider">Subtotal</span>
+        <span class="text-2xl font-serif text-amber-500" id="cart-total">$0.00</span>
+      </div>
+      <button
+        class="w-full glass-panel text-stone-950 bg-amber-500 hover:bg-amber-400 font-label-sm text-label-sm px-8 py-4 rounded-full soft-amber-glow transition-all duration-300 uppercase tracking-widest"
+        onclick="alert('Proceeding to checkout...')">
+        Checkout
+      </button>
+    </div>
+  </div>
+  <!-- Quick View Modal -->
+  <div
+    class="fixed inset-0 bg-black/80 backdrop-blur-md z-[80] hidden flex items-center justify-center p-4 transition-opacity duration-300"
+    id="quick-view-modal">
+    <div
+      class="bg-stone-900 border border-amber-900/30 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto flex flex-col md:flex-row relative">
+      <button class="absolute top-4 right-4 text-stone-400 hover:text-amber-500 z-10 bg-black/50 rounded-full p-1"
+        onclick="closeQuickView()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="w-full md:w-1/2 p-8 flex justify-center items-center bg-stone-950/50">
+        <img alt="Product Image" class="w-64 h-auto object-contain drop-shadow-2xl" id="qv-img" src="" />
+      </div>
+      <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
+        <h2 class="font-headline-lg text-amber-500 mb-2" id="qv-title">Product Title</h2>
+        <p class="text-2xl font-serif text-stone-300 mb-6" id="qv-price">$0.00</p>
+        <p class="font-body-md text-stone-400 mb-8 leading-relaxed" id="qv-desc">Product description goes here.</p>
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="flex items-center gap-3 text-stone-300">
+            <span class="material-symbols-outlined text-amber-600">water_drop</span>
+            <div>
+              <p class="text-xs text-stone-500 uppercase tracking-wider">Alc/Vol</p>
+              <p class="font-medium" id="qv-abv">18%</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 text-stone-300">
+            <span class="material-symbols-outlined text-amber-600">psychiatry</span>
+            <div>
+              <p class="text-xs text-stone-500 uppercase tracking-wider">Dulzor</p>
+              <p class="font-medium" id="qv-sweetness">Medio</p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="w-full glass-panel text-amber-500 border border-amber-500/50 hover:bg-amber-500/10 font-label-sm px-8 py-4 rounded-full soft-amber-glow transition-all duration-300 uppercase tracking-widest flex items-center justify-center gap-2"
+          id="qv-add-btn">
+          <span>Agregar al carrito</span>
+          <span class="material-symbols-outlined">add_shopping_cart</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Product Data for Quick View
+    const productData = {
+      1: {
+        title: 'Macerado de Manzana Verde',
+        price: 35.00,
+        desc: 'Refrescante, ácido y con el aroma vibrante de manzanas verdes seleccionadas. Un macerado artesanal que captura la esencia pura de la fruta con un equilibrio perfecto entre dulzor y acidez. Ideal para coctelería fresca o disfrutar solo con hielo.',
+        abv: '18%',
+        sweetness: 'Bajo / Ácido',
+        img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCgoXRqz2pDMu_EH6dWGbs_skQiNDLJKFPJDiWWGx1MWFoQqqN2VhYptWRsbvTK1GZjvgfaDxwR5YOu7CQq-fQqXnqyE71EcHSS_mgfc_nlKSZW7y0iMsfb_gTVBIe06r8HKqq08YqH-UpM88EF5tloQIuGSoJbc9hXDqaZL5EhvlJHgkyY1k9hLbAHv8UiKULhkc_2QZBg6iStVSVjODvXIDL7lE6kkRfY4uZfAxPn8WwQQGYDL0aGxeYCNwowqKrkUVsSWl27dek'
+      },
+      2: {
+        title: 'Licor de Cacao',
+        price: 42.00,
+        desc: 'Profundo, sedoso con notas de cacao tostado. Elaborado con granos de cacao nicaragüense de primera calidad, este licor ofrece una experiencia rica y decadente. Perfecto como digestivo o para aportar profundidad a cócteles clásicos.',
+        abv: '18%',
+        sweetness: 'Alto',
+        img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlRslAwmwQtGmkq0ARuh4hKHG7--Npx58uSRn--GspQv1_0iwq1bD0ynJcW_2DKh9HuiUa0w3Y8AqErWpgIEI565UNWRDJTNFFyFBOOkJn6Ns7ULiKltZwSpiu8hHwwN_KbnKh2mvwQ_IwGEyytsY9yxvxWdXYROT2fMDyQXw9lBz5qIG8gyxTolfb7AYwwoDed2Mv1xD2v1jHn-00RVziqySCb6tYz9qKEoFMqEcOC-5FUnFNAJMD58IRHWxKvcYy6xPDs0esEtQ'
+      },
+      3: {
+        title: 'Licor de Café',
+        price: 38.00,
+        desc: 'Intenso, aromático, puramente nicaragüense. Infusionado lentamente con café de altura recién tostado. Este licor captura el alma del café de Nicaragua, entregando notas oscuras, un toque de caramelo y un final suave y persistente.',
+        abv: '22%',
+        sweetness: 'Medio',
+        img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCpCdjzCSCc2ObRJYBH2Az-QTiDZSVgl9RO-XmaFbdLNHiHq-qp8acFdfaA6zfL824kM-3SBmuL5IwDUz3zSjhljw-z3LCE034ZjrCx4TpYaAACkgIjzkVgZ46y9uGlB6iBfYvK2LTWl6ZktdWSDIShorgFWhO2dNdyhedhgCkOmJK1CWhb2nh7qsRo5iCFdfzBRX-n9pE7LXLFCwEk3H9ECQihr3EBSmKh63e1YCVJVXW2kx3HboBXLrvndhGyR5y10Des1--_eqY'
+      }
+    };
 
-</html>
+    // --- Shopping Cart Logic ---
+    let cart = [];
+
+    function addToCart(id, name, price, img) {
+      const existingItem = cart.find(item => item.id === id);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ id, name, price, qty: 1, img });
+      }
+      updateCartUI();
+
+      // Brief visual feedback on the button could go here
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    }
+
+    function updateQty(id, change) {
+      const item = cart.find(item => item.id === id);
+      if (item) {
+        item.qty += change;
+        if (item.qty <= 0) {
+          removeFromCart(id);
+        } else {
+          updateCartUI();
+        }
+      }
+    }
+
+    function updateCartUI() {
+      const counter = document.getElementById('cart-counter');
+      const itemsContainer = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total');
+      const emptyMsg = document.getElementById('empty-cart-msg');
+
+      // Update Counter
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      counter.textContent = totalItems;
+
+      // Render Items
+      itemsContainer.innerHTML = '';
+      if (cart.length === 0) {
+        emptyMsg.classList.remove('hidden');
+        itemsContainer.appendChild(emptyMsg);
+        totalEl.textContent = '$0.00';
+        return;
+      }
+
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.qty;
+
+        const div = document.createElement('div');
+        div.className = 'flex gap-4 mb-6 pb-6 border-b border-stone-800/50';
+        div.innerHTML = `
+                <img src="${item.img}" alt="${item.name}" class="w-20 h-24 object-cover rounded-lg">
+                <div class="flex-1 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-stone-200 font-serif text-sm line-clamp-2">${item.name}</h4>
+                        <p class="text-amber-600 font-bold mt-1">$${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="flex items-center gap-3 bg-stone-900 rounded-full px-2 py-1 border border-stone-700">
+                            <button onclick="updateQty(${item.id}, -1)" class="text-stone-400 hover:text-amber-500 w-5 h-5 flex items-center justify-center">-</button>
+                            <span class="text-stone-200 text-sm w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQty(${item.id}, 1)" class="text-stone-400 hover:text-amber-500 w-5 h-5 flex items-center justify-center">+</button>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-stone-600 hover:text-red-400">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        itemsContainer.appendChild(div);
+      });
+
+      totalEl.textContent = `$${total.toFixed(2)}`;
+    }
+
+    function toggleCart() {
+      const overlay = document.getElementById('cart-overlay');
+      const drawer = document.getElementById('cart-drawer');
+
+      if (drawer.classList.contains('translate-x-full')) {
+        // Open
+        overlay.classList.remove('hidden');
+        // Small delay to allow display:block to apply before opacity transition
+        setTimeout(() => {
+          drawer.classList.remove('translate-x-full');
+        }, 10);
+      } else {
+        // Close
+        drawer.classList.add('translate-x-full');
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    // --- Product Filters ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('#product-filters button');
+      const productItems = document.querySelectorAll('.product-item');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active state of buttons
+          filterBtns.forEach(b => {
+            b.classList.remove('border-amber-500/30', 'text-amber-500', 'bg-amber-500/10');
+            b.classList.add('border-stone-700', 'text-stone-400');
+          });
+          btn.classList.remove('border-stone-700', 'text-stone-400');
+          btn.classList.add('border-amber-500/30', 'text-amber-500', 'bg-amber-500/10');
+
+          const filterValue = btn.getAttribute('data-filter');
+
+          productItems.forEach(item => {
+            // Smooth transition
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+              if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                item.style.display = 'block';
+                setTimeout(() => {
+                  item.style.opacity = '1';
+                  item.style.transform = 'scale(1)';
+                }, 50);
+              } else {
+                item.style.display = 'none';
+              }
+            }, 300);
+          });
+        });
+      });
+
+      // Initial UI update for cart
+      updateCartUI();
+    });
+
+    // --- Quick View Modal ---
+    function openQuickView(id) {
+      const modal = document.getElementById('quick-view-modal');
+      const data = productData[id];
+
+      if (!data) return;
+
+      document.getElementById('qv-img').src = data.img;
+      document.getElementById('qv-title').textContent = data.title;
+      document.getElementById('qv-price').textContent = `$${data.price.toFixed(2)}`;
+      document.getElementById('qv-desc').textContent = data.desc;
+      document.getElementById('qv-abv').textContent = data.abv;
+      document.getElementById('qv-sweetness').textContent = data.sweetness;
+
+      const addBtn = document.getElementById('qv-add-btn');
+      addBtn.onclick = () => {
+        addToCart(id, data.title, data.price, data.img);
+        closeQuickView();
+        toggleCart(); // Optional: open cart after adding from quick view
+      };
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeQuickView() {
+      const modal = document.getElementById('quick-view-modal');
+      modal.classList.add('hidden');
+    }
+
+    // Close modal on outside click
+    document.getElementById('quick-view-modal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeQuickView();
+      }
+    });
+
+</script>
+  
+  <!-- Footer -->
+  <footer class="w-full border-t border-stone-800 mt-32 bg-stone-950">
+    <div class="max-w-7xl mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-lg font-serif text-amber-600/50">
+        Macero
+      </div>
+  
+      <div class="flex gap-6 font-serif text-xs tracking-widest uppercase">
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">
+          Newsletter
+        </a>
+  
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">
+          Privacy Policy
+        </a>
+  
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">
+          Terms of Service
+        </a>
+  
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">
+          Contact
+        </a>
+      </div>
+  
+      <div class="text-amber-600 dark:text-amber-700 font-serif text-xs tracking-widest uppercase">
+        © 2024 Macero. Artisanal Excellence from Nicaragua.
+      </div>
+    </div>
+  </footer>
+  
+  </body>
+  
+  </html>
