@@ -1,13 +1,364 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
-    <title>weblicores</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Macero - Artisanal Excellence from Nicaragua</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Noto+Serif:ital,wght@0,500;0,600;0,700;1,500&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#ffb68e",
+            "on-primary": "#532200",
+            "primary": "#ffb68e",
+            "background": "#131313",
+            "error-container": "#93000a",
+            "inverse-primary": "#9b4500",
+            "on-secondary": "#3c2f00",
+            "on-tertiary-fixed-variant": "#5b403c",
+            "tertiary": "#e3beb8",
+            "surface-variant": "#353534",
+            "secondary": "#e9c349",
+            "tertiary-fixed": "#ffdad4",
+            "surface": "#131313",
+            "tertiary-fixed-dim": "#e3beb8",
+            "on-primary-fixed-variant": "#763300",
+            "on-error-container": "#ffdad6",
+            "on-secondary-container": "#342800",
+            "on-background": "#e5e2e1",
+            "on-primary-fixed": "#331200",
+            "error": "#ffb4ab",
+            "surface-container-highest": "#353534",
+            "outline": "#a48c7f",
+            "surface-tint": "#ffb68e",
+            "surface-container": "#201f1f",
+            "on-primary-container": "#fff1eb",
+            "primary-container": "#b45309",
+            "on-error": "#690005",
+            "secondary-fixed-dim": "#e9c349",
+            "on-surface-variant": "#ddc1b3",
+            "on-tertiary-container": "#fff0ee",
+            "on-surface": "#e5e2e1",
+            "on-tertiary-fixed": "#2b1613",
+            "outline-variant": "#564338",
+            "on-secondary-fixed": "#241a00",
+            "surface-dim": "#131313",
+            "secondary-container": "#af8d11",
+            "surface-container-lowest": "#0e0e0e",
+            "surface-container-low": "#1c1b1b",
+            "secondary-fixed": "#ffe088",
+            "inverse-surface": "#e5e2e1",
+            "on-tertiary": "#422a26",
+            "surface-container-high": "#2a2a2a",
+            "on-secondary-fixed-variant": "#574500",
+            "inverse-on-surface": "#313030",
+            "primary-fixed": "#ffdbca",
+            "surface-bright": "#3a3939",
+            "tertiary-container": "#866863"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "section-gap": "120px",
+            "container-max": "1280px",
+            "unit": "8px",
+            "margin-edge": "40px",
+            "gutter": "32px"
+          },
+          "fontFamily": {
+            "display-xl": [
+              "Noto Serif"
+            ],
+            "body-md": [
+              "Be Vietnam Pro"
+            ],
+            "label-sm": [
+              "Be Vietnam Pro"
+            ],
+            "body-lg": [
+              "Be Vietnam Pro"
+            ],
+            "headline-md": [
+              "Noto Serif"
+            ],
+            "headline-lg": [
+              "Noto Serif"
+            ]
+          },
+          "fontSize": {
+            "display-xl": [
+              "72px",
+              {
+                "lineHeight": "1.1",
+                "letterSpacing": "-0.02em",
+                "fontWeight": "700"
+              }
+            ],
+            "body-md": [
+              "16px",
+              {
+                "lineHeight": "1.6",
+                "fontWeight": "400"
+              }
+            ],
+            "label-sm": [
+              "12px",
+              {
+                "lineHeight": "1",
+                "letterSpacing": "0.1em",
+                "fontWeight": "600"
+              }
+            ],
+            "body-lg": [
+              "18px",
+              {
+                "lineHeight": "1.6",
+                "fontWeight": "400"
+              }
+            ],
+            "headline-md": [
+              "32px",
+              {
+                "lineHeight": "1.3",
+                "fontWeight": "500"
+              }
+            ],
+            "headline-lg": [
+              "48px",
+              {
+                "lineHeight": "1.2",
+                "fontWeight": "600"
+              }
+            ]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      background-color: theme('colors.background');
+      color: theme('colors.on-background');
+    }
+
+    .glass-panel {
+      background: rgba(32, 31, 31, 0.4);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 182, 142, 0.1);
+    }
+
+    .soft-amber-glow {
+      box-shadow: 0 8px 32px 0 rgba(180, 83, 9, 0.15);
+    }
+
+    .hover-amber-glow:hover {
+      box-shadow: 0 12px 48px 0 rgba(180, 83, 9, 0.25);
+      transform: scale(1.02);
+    }
+
+    .ambient-radial {
+      background: radial-gradient(circle at center, rgba(180, 83, 9, 0.2) 0%, transparent 70%);
+    }
+
+    .text-gradient-amber {
+      background: linear-gradient(135deg, theme('colors.primary') 0%, theme('colors.primary-container') 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+
+<body class="antialiased overflow-x-hidden">
+  <!-- TopNavBar -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 px-4 flex justify-between items-center h-16 bg-black/40 dark:bg-stone-950/60 backdrop-blur-2xl rounded-full border border-amber-500/20 max-w-5xl mx-auto mt-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)] backdrop-blur-md border border-white/5">
+    <div class="text-2xl font-serif italic text-amber-500 drop-shadow-[0_0_8px_rgba(180,83,9,0.4)]">
+      Macero
+    </div>
+    <div class="hidden md:flex gap-8 font-serif tracking-wide text-sm uppercase">
+      <a class="text-amber-400 border-b-2 border-amber-500 pb-1 cursor-pointer active:scale-95 transition-transform"
+        href="#">Products</a>
+      <a class="text-stone-300/80 hover:text-white cursor-pointer active:scale-95 transition-transform hover:scale-105 transition-all duration-400 ease-out hover:shadow-amber-900/20"
+        href="#">Experience</a>
+      <a class="text-stone-300/80 hover:text-white cursor-pointer active:scale-95 transition-transform hover:scale-105 transition-all duration-400 ease-out hover:shadow-amber-900/20"
+        href="#">Cocktails</a>
+      <a class="text-stone-300/80 hover:text-white cursor-pointer active:scale-95 transition-transform hover:scale-105 transition-all duration-400 ease-out hover:shadow-amber-900/20"
+        href="#">Story</a>
+      <a class="text-stone-300/80 hover:text-white cursor-pointer active:scale-95 transition-transform hover:scale-105 transition-all duration-400 ease-out hover:shadow-amber-900/20"
+        href="#">Shop</a>
+    </div>
+    <div class="flex gap-4 text-amber-600 dark:text-amber-500">
+      <span class="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform">shopping_cart</span>
+      <span class="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform">favorite</span>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center pt-32 pb-20 overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <img alt="Hero Background" class="w-full h-full object-cover opacity-40"
+        data-alt="A cinematic, moody composition of luxurious artisanal glass bottles filled with amber liquid, resting on a dark slate surface. Lush tropical fruits like passion fruit and cacao pods surround the bottles. Soft, warm amber lighting highlights the condensation on the glass and curling steam in the background. The aesthetic is premium tropical glassmorphism with deep shadows and vibrant sunset accents."
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqoA8ouNhbv-xq0PEAMIWYkjJRyGreFfkcMScm5-EvaQ7ziEp2ecpgtnbuNdGGUXaIEve5wwfQxwDO2u8Q8A-M58QfkVzoy8L_UckDOQYlnVMNTulYCPuLAkxy2US1XnoKlJETdTShbg7tqA_qYKwhx0X6qgrZlWPvM32uiWzAiGP6VeSI0fx-neR08pgCq32duz_xNniViCE_2_-pycfc8pEXg9OmNdOSV5lg5sKvQDCP2gvCkmDce1xs-TiPL9Rt1rZSOpqKhQY" />
+      <div class="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
+    </div>
+    <div class="relative z-10 w-full max-w-container-max mx-auto px-gutter flex flex-col items-center text-center">
+      <h1 class="font-display-xl text-display-xl text-gradient-amber mb-6 drop-shadow-2xl">
+        Macero
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-12">
+        Nicaraguan artisanal liquor crafted with patience. A cinematic blend of dark, moody textures and the warm glow
+        of a tropical sunset.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6">
+        <button
+          class="glass-panel text-primary font-label-sm text-label-sm px-8 py-4 rounded-full soft-amber-glow hover:bg-primary/10 transition-all duration-500">
+          Ver productos
+        </button>
+        <button
+          class="border border-outline text-on-surface font-label-sm text-label-sm px-8 py-4 rounded-full hover:border-primary hover:text-primary transition-all duration-500">
+          Explorar sabores
+        </button>
+      </div>
+    </div>
+  </section>
+  <!-- Featured Products -->
+  <section class="py-section-gap w-full max-w-container-max mx-auto px-gutter">
+    <div class="text-center mb-16">
+      <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Nuestra Colección</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">Descubre el arte de la maceración en cada botella.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Product Card 1 -->
+      <div
+        class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+        <div class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+        </div>
+        <div class="relative z-10 flex flex-col items-center">
+          <img alt="Macerado de Manzana Verde" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
+            data-alt='A premium artisanal bottle of "Macerado de Manzana Verde" liquor. The label is elegant and clearly features a green apple illustration. The bottle is filled with a vibrant, translucent green liquid. Cinematic lighting, warm glow, dark background with subtle tropical leaves, high resolution, professional product photography.'
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgoXRqz2pDMu_EH6dWGbs_skQiNDLJKFPJDiWWGx1MWFoQqqN2VhYptWRsbvTK1GZjvgfaDxwR5YOu7CQq-fQqXnqyE71EcHSS_mgfc_nlKSZW7y0iMsfb_gTVBIe06r8HKqq08YqH-UpM88EF5tloQIuGSoJbc9hXDqaZL5EhvlJHgkyY1k9hLbAHv8UiKULhkc_2QZBg6iStVSVjODvXIDL7lE6kkRfY4uZfAxPn8WwQQGYDL0aGxeYCNwowqKrkUVsSWl27dek" />
+          <h3 class="font-headline-md text-headline-md text-secondary mb-2">Macerado de Manzana Verde</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Refrescante, ácido y con el
+            aroma vibrante de manzanas verdes seleccionadas.</p>
+          <div class="w-full mb-4">
+            <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+              <span>Nivel de dulzor</span>
+              <span>Bajo / Ácido</span>
+            </div>
+            <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+              <div class="h-full bg-secondary w-1/4"></div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center w-full mt-4">
+            <span class="font-label-sm text-label-sm text-primary">18% Alc/Vol</span>
+            <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <span class="font-label-sm text-label-sm">Agregar</span>
+              <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Product Card 2 -->
+      <div
+        class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+        <div class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+        </div>
+        <div class="relative z-10 flex flex-col items-center">
+          <img alt="Licor de Cacao" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
+            data-alt="An elegant artisanal bottle containing a rich, dark brown cacao liqueur. It rests on a textured slate surface illuminated by a single spotlight from above, creating a cinematic, moody atmosphere. Small roasted cacao beans are scattered artfully around the base. The vibe is premium and indulgent."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlRslAwmwQtGmkq0ARuh4hKHG7--Npx58uSRn--GspQv1_0iwq1bD0ynJcW_2DKh9HuiUa0w3Y8AqErWpgIEI565UNWRDJTNFFyFBOOkJn6Ns7ULiKltZwSpiu8hHwwN_KbnKh2mvwQ_IwGEyytsY9yxvxWdXYROT2fMDyQXw9lBz5qIG8gyxTolfb7AYwwoDed2Mv1xD2v1jHn-00RVziqySCb6tYz9qKEoFMqEcOC-5FUnFNAJMD58IRHWxKvcYy6xPDs0esEtQ" />
+          <h3 class="font-headline-md text-headline-md text-secondary mb-2">Licor de Cacao</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Profundo, sedoso con notas de
+            cacao tostado.</p>
+          <div class="w-full mb-4">
+            <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+              <span>Nivel de dulzor</span>
+              <span>Alto</span>
+            </div>
+            <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+              <div class="h-full bg-secondary w-4/5"></div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center w-full mt-4">
+            <span class="font-label-sm text-label-sm text-primary">18% Alc/Vol</span>
+            <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <span class="font-label-sm text-label-sm">Agregar</span>
+              <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Product Card 3 -->
+      <div
+        class="glass-panel rounded-xl p-6 hover-amber-glow transition-all duration-500 relative overflow-hidden group">
+        <div class="absolute inset-0 ambient-radial opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+        </div>
+        <div class="relative z-10 flex flex-col items-center">
+          <img alt="Licor de Café" class="w-48 h-64 object-cover rounded-lg mb-6 shadow-2xl"
+            data-alt="A tall, beautifully crafted glass bottle showcasing a deep amber coffee liqueur. The bottle is set against a pitch-black background with a soft gold rim light highlighting the liquid's rich color. A few premium coffee beans are visible near the bottom edge. Cinematic glassmorphism style."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpCdjzCSCc2ObRJYBH2Az-QTiDZSVgl9RO-XmaFbdLNHiHq-qp8acFdfaA6zfL824kM-3SBmuL5IwDUz3zSjhljw-z3LCE034ZjrCx4TpYaAACkgIjzkVgZ46y9uGlB6iBfYvK2LTWl6ZktdWSDIShorgFWhO2dNdyhedhgCkOmJK1CWhb2nh7qsRo5iCFdfzBRX-n9pE7LXLFCwEk3H9ECQihr3EBSmKh63e1YCVJVXW2kx3HboBXLrvndhGyR5y10Des1--_eqY" />
+          <h3 class="font-headline-md text-headline-md text-secondary mb-2">Licor de Café</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-center mb-6">Intenso, aromático, puramente
+            nicaragüense.</p>
+          <div class="w-full mb-4">
+            <div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+              <span>Nivel de dulzor</span>
+              <span>Medio</span>
+            </div>
+            <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+              <div class="h-full bg-secondary w-3/5"></div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center w-full mt-4">
+            <span class="font-label-sm text-label-sm text-primary">22% Alc/Vol</span>
+            <button class="flex items-center gap-2 text-primary hover:text-primary-fixed transition-colors">
+              <span class="font-label-sm text-label-sm">Agregar</span>
+              <span class="material-symbols-outlined text-sm">add_shopping_cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="w-full border-t border-stone-800 mt-32 bg-stone-950">
+    <div class="max-w-7xl mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="text-lg font-serif text-amber-600/50">
+        Macero
+      </div>
+      <div class="flex gap-6 font-serif text-xs tracking-widest uppercase">
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">Newsletter</a>
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">Privacy Policy</a>
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">Terms of Service</a>
+        <a class="text-stone-500 hover:text-amber-400 transition-colors duration-300" href="#">Contact</a>
+      </div>
+      <div class="text-amber-600 dark:text-amber-700 font-serif text-xs tracking-widest uppercase">
+        © 2024 Macero. Artisanal Excellence from Nicaragua.
+      </div>
+    </div>
+  </footer>
+</body>
+
 </html>
